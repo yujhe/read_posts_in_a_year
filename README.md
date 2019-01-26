@@ -51,7 +51,7 @@ optional arguments:
   ...
   ```
 
-  ![](/Users/yujhe.li/Desktop/pocket_auth.png)
+  ![](png/pocket_auth.png)
 
 * Export your reading statistics with detail in this year to a Markdown document.
 
