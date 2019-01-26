@@ -96,4 +96,8 @@ optional arguments:
   $ python read_posts_in_a_year.py -y 2018 --detail --export my_report.md
   ```
 
-  
+
+## Monthly Reading Report
+
+* The tool default will output your reading report to `<yyyy>_read_posts.md`. See also: [2018_read_posts.md](2018_read_posts.md)
+
