@@ -15,29 +15,32 @@ redirect_uri = 'https://app.getpocket.com/'
 
 
 def display_monthly_read_statistic(year, df, detail, file=None):
-    grouped = df.groupby('month_read')
-
     if file:
         logging.info('export your read statistics to file: {}'.format(file))
         f = open(file, 'w')
     else:
         f = None
 
-    print('# Read Posts in {}'.format(year), file=f)
-    for month, count in grouped.size().iteritems():
-        print('* {}: {}'.format(month, count), file=f)
+    if df.empty:
+        print('0 read post in {}'.format(year), file=f)
+    else:
+        grouped = df.groupby('month_read')
 
-    if detail:
-        print('\n', file=f)
-        for month, group in grouped:
-            sorted = group.sort_values(['is_article', 'date_read', 'resolved_title'], ascending=[False, True, True])
-            print('## {}'.format(month), file=f)
-            for idx, row in sorted.iterrows():
-                post_type = '(POST)' if row.is_article == '1' else '(VIDEO)' if row.has_video == '2' else '(UN)'
-                print('* {type:7} {date} {title}: {url}'.format(
-                    date=row.date_read, type=post_type,
-                    title=row.resolved_title, url=row.resolved_url), file=f)
-            print('', file=f)
+        print('# Read Posts in {}'.format(year), file=f)
+        for month, count in grouped.size().iteritems():
+            print('* {}: {}'.format(month, count), file=f)
+
+        if detail:
+            print('\n', file=f)
+            for month, group in grouped:
+                sorted = group.sort_values(['is_article', 'date_read', 'resolved_title'], ascending=[False, True, True])
+                print('## {}'.format(month), file=f)
+                for idx, row in sorted.iterrows():
+                    post_type = '(POST)' if row.is_article == '1' else '(VIDEO)' if row.has_video == '2' else '(UN)'
+                    print('* {type:7} {date} {title}: {url}'.format(
+                        date=row.date_read, type=post_type,
+                        title=row.resolved_title, url=row.resolved_url), file=f)
+                print('', file=f)
 
     if file:
         f.close()
@@ -58,6 +61,10 @@ def retrieve_read_posts_in_a_year(token, year):
     response = requests.get(retrieve_uri, headers=headers, data=json.dumps(payload))
     df = pd.DataFrame(response.json()['list']).transpose()
 
+    columns = ['month_read', 'date_read', 'resolved_title', 'resolved_url', 'is_article', 'has_video', 'tags']
+    if df.empty:
+        return pd.DataFrame(columns=columns)
+
     next_year = datetime(year + 1, 1, 1)
     df = df[df.time_read.astype(int) < next_year.timestamp()]  # filter read posts in a year
 
@@ -65,8 +72,6 @@ def retrieve_read_posts_in_a_year(token, year):
     date_read = df.time_read.astype(int).apply(lambda t: datetime.fromtimestamp(t).date().strftime('%Y/%m/%d'))
 
     df = df.assign(date_read=date_read.values, month_read=month_read.values)
-    columns = ['time_read', 'month_read', 'date_read', 'resolved_title', 'resolved_url', 'is_article', 'has_video',
-               'tags']
 
     return df[columns]
 
