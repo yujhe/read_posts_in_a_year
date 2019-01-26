@@ -27,8 +27,9 @@ def display_monthly_read_statistic(year, df, detail, file=None):
         grouped = df.groupby('month_read')
 
         print('# Read Posts in {}'.format(year), file=f)
+        print('| Month   | Read |\n| ------- | ---- |', file=f)
         for month, count in grouped.size().iteritems():
-            print('* {}: {}'.format(month, count), file=f)
+            print('| {:7s} | {:4d} |'.format(month, count), file=f)
 
         if detail:
             print('\n', file=f)

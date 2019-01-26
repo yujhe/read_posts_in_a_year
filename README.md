@@ -63,7 +63,10 @@ optional arguments:
   2019-01-26 11:46:58,375 - root - INFO - obtain user access token from Pocket server
   2019-01-26 11:46:59,283 - root - INFO - retrieve archived posts from Pocket server
   # Read Posts in 2019
-  * 2019-01: 3
+  # Read Posts in 2019
+  | Month   | Read |
+  | ------- | ---- |
+  | 2019-01 |    3 |
   
   
   ## 2019-01
@@ -84,9 +87,11 @@ optional arguments:
   2019-01-26 11:53:16,805 - root - INFO - obtain user access token from Pocket server
   2019-01-26 11:53:17,851 - root - INFO - retrieve archived posts from Pocket server
   # Read Posts in 2018
-  * 2018-10: 5
-  * 2018-11: 9
-  * 2018-12: 1
+  | Month   | Read |
+  | ------- | ---- |
+  | 2018-10 |    5 |
+  | 2018-11 |    9 |
+  | 2018-12 |    1 |
   2019-01-26 11:53:19,136 - root - INFO - export your read statistics to file: 2018_read_posts.md
   ```
 
