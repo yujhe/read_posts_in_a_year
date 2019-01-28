@@ -104,5 +104,26 @@ optional arguments:
 
 ## Monthly Reading Report
 
-* The tool default will output your reading report to `<yyyy>_read_posts.md`. See also: [2018_read_posts.md](2018_read_posts.md)
+* The tool default will output your reading report to `<yyyy>_read_posts.md`, like: [2018_read_posts.md](2018_read_posts.md)
+
+  ```md
+  # Read Posts in 2018
+  | Month   | Read |
+  | ------- | ---- |
+  | 2018-10 |    5 |
+  | 2018-11 |    9 |
+  | 2018-12 |    1 |
+  
+  
+  ## 2018-10
+  * (POST)  2018/10/16 Apache Spark Scheduler: https://databricks.com/session/apache-spark-scheduler
+  * (POST)  2018/10/16 Spark Scheduler模块详解-DAGScheduler实现: https://www.jianshu.com/p/ad9610bcb4d0
+  * (POST)  2018/10/16 Spark Scheduler模块详解-TaskScheduler实现: https://www.jianshu.com/p/dc0c765732a1
+  * (POST)  2018/10/16 Spark-Core源码精读(8)、TaskScheduler和SchedulerBackend: https://www.jianshu.com/p/09a7ab253682
+  * (POST)  2018/10/16 [spark] TaskScheduler 任务提交与调度源码解析: https://www.jianshu.com/p/d3b620581dc2
+  ```
+
+## Developers
+
+You can change [consumer_key](read_posts_in_a_year.py#L13) to your application, more detail in [authentication](https://getpocket.com/developer/docs/authentication).
 
