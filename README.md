@@ -27,8 +27,7 @@ This tool helps you to export your read (archived) posts in a year from [Pocket]
 
 ```sh
 $ python read_posts_in_a_year.py --help
-usage: read_posts_in_a_year.py [-h] [--init] [-y YEAR] [--detail]
-                               [--export EXPORT]
+usage: read_posts_in_a_year.py [-h] [--init] [-y YEAR] [--export EXPORT]
 
 show your read posts in a year from Pocket
 
@@ -36,7 +35,6 @@ optional arguments:
   -h, --help            show this help message and exit
   --init                initial for 1st time authorization
   -y YEAR, --year YEAR  the reading status of this year
-  --detail              show read posts in detail
   --export EXPORT       export your read statistics to file
 ```
 
@@ -56,7 +54,7 @@ optional arguments:
 * Export your reading statistics with detail in this year to a Markdown document.
 
   ```sh
-  $ python read_posts_in_a_year.py --detail
+  $ python read_posts_in_a_year.py
   
   2019-01-26 11:46:53,865 - root - INFO - obtain request token from Pocket server
   2019-01-26 11:46:55,170 - root - INFO - authorize this app to access your Pocket list
@@ -86,19 +84,29 @@ optional arguments:
   2019-01-26 11:53:13,650 - root - INFO - authorize this app to access your Pocket list
   2019-01-26 11:53:16,805 - root - INFO - obtain user access token from Pocket server
   2019-01-26 11:53:17,851 - root - INFO - retrieve archived posts from Pocket server
+
   # Read Posts in 2018
   | Month   | Read |
   | ------- | ---- |
   | 2018-10 |    5 |
   | 2018-11 |    9 |
   | 2018-12 |    1 |
+  
+  
+  ## 2018-10
+  * (POST)  2018/10/16 Apache Spark Scheduler: https://databricks.com/session/apache-spark-scheduler
+  * (POST)  2018/10/16 Spark Scheduler模块详解-DAGScheduler实现: https://www.jianshu.com/p/ad9610bcb4d0
+  * (POST)  2018/10/16 Spark Scheduler模块详解-TaskScheduler实现: https://www.jianshu.com/p/dc0c765732a1
+  * (POST)  2018/10/16 Spark-Core源码精读(8)、TaskScheduler和SchedulerBackend: https://www.jianshu.com/p/09a7ab253682
+  * (POST)  2018/10/16 [spark] TaskScheduler 任务提交与调度源码解析: https://www.jianshu.com/p/d3b620581dc2
+  
   2019-01-26 11:53:19,136 - root - INFO - export your read statistics to file: 2018_read_posts.md
   ```
 
 * Export to a specific file.
 
   ```sh
-  $ python read_posts_in_a_year.py -y 2018 --detail --export my_report.md
+  $ python read_posts_in_a_year.py -y 2018 --export my_report.md
   ```
 
 

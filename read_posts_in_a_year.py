@@ -15,7 +15,7 @@ consumer_key = "83388-b2ec4359911b6b6043827972"
 redirect_uri = "https://app.getpocket.com/"
 
 
-def display_monthly_read_statistic(year, df, detail, file=None):
+def display_monthly_read_statistic(year, df, file=None):
     if file:
         logging.info("export your read statistics to file: {}".format(file))
         f = open(file, "w")
@@ -32,32 +32,31 @@ def display_monthly_read_statistic(year, df, detail, file=None):
         for month, count in grouped.size().iteritems():
             print("| {:7s} | {:4d} |".format(month, count), file=f)
 
-        if detail:
-            print("\n", file=f)
-            for month, group in grouped:
-                sorted = group.sort_values(
-                    ["is_article", "date_read", "resolved_title"],
-                    ascending=[False, True, True],
+        print("\n", file=f)
+        for month, group in grouped:
+            sorted = group.sort_values(
+                ["is_article", "date_read", "resolved_title"],
+                ascending=[False, True, True],
+            )
+            print("## {}".format(month), file=f)
+            for idx, row in sorted.iterrows():
+                post_type = (
+                    "(POST)"
+                    if row.is_article == "1"
+                    else "(VIDEO)"
+                    if row.has_video == "2"
+                    else "(UN)"
                 )
-                print("## {}".format(month), file=f)
-                for idx, row in sorted.iterrows():
-                    post_type = (
-                        "(POST)"
-                        if row.is_article == "1"
-                        else "(VIDEO)"
-                        if row.has_video == "2"
-                        else "(UN)"
-                    )
-                    print(
-                        "* {type:7} {date} {title}: {url}".format(
-                            date=row.date_read,
-                            type=post_type,
-                            title=row.resolved_title,
-                            url=row.resolved_url,
-                        ),
-                        file=f,
-                    )
-                print("", file=f)
+                print(
+                    "* {type:7} {date} {title}: {url}".format(
+                        date=row.date_read,
+                        type=post_type,
+                        title=row.resolved_title,
+                        url=row.resolved_url,
+                    ),
+                    file=f,
+                )
+            print("", file=f)
 
     if file:
         f.close()
@@ -180,9 +179,6 @@ def parse_args():
         help="the reading status of this year",
     )
     parser.add_argument(
-        "--detail", action="store_true", help="show read posts in detail"
-    )
-    parser.add_argument(
         "--export", type=str, help="export your read statistics to file"
     )
 
@@ -202,5 +198,5 @@ if __name__ == "__main__":
     do_authorization(args.init, request_token)
     user_access_token = obtain_user_access_token(request_token)
     df = retrieve_read_posts_in_a_year(user_access_token, args.year)
-    display_monthly_read_statistic(args.year, df, args.detail)  # display to console
-    display_monthly_read_statistic(args.year, df, args.detail, file)  # output to file
+    display_monthly_read_statistic(args.year, df)  # display to console
+    display_monthly_read_statistic(args.year, df, file)  # output to file
