@@ -31,6 +31,8 @@ def display_monthly_read_statistic(year, df, file=None):
         print("| Month   | Read |\n| ------- | ---- |", file=f)
         for month, count in grouped.size().iteritems():
             print("| {:7s} | {:4d} |".format(month, count), file=f)
+        print("| ------- | ---- |", file=f)
+        print("| Total   | {:4d} |".format(df["month_read"].count()), file=f)
 
         print("\n", file=f)
         for month, group in grouped:
