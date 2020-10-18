@@ -93,7 +93,6 @@ def retrieve_read_posts_in_a_year(token, year):
         "resolved_url",
         "is_article",
         "has_video",
-        "tags",
     ]
     if df.empty:
         return pd.DataFrame(columns=columns)
