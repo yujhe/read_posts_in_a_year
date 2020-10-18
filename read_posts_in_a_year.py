@@ -202,5 +202,5 @@ if __name__ == "__main__":
         user_access_token = open(token_file, 'r').read()
 
     df = retrieve_read_posts_in_a_year(user_access_token, args.year)
-    display_monthly_read_statistic(args.year, df)  # display to console
+    #display_monthly_read_statistic(args.year, df)  # display to console
     display_monthly_read_statistic(args.year, df, file)  # output to file
