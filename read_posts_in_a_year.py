@@ -2,17 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import requests
 import json
-from datetime import datetime, date
 import logging
-import webbrowser
+import os
 import time
+import webbrowser
+from datetime import date, datetime
+
 import pandas as pd
+import requests
 
 # can be replaced with your consumer key
 consumer_key = "83388-b2ec4359911b6b6043827972"
 redirect_uri = "https://app.getpocket.com/"
+token_file = '.pocket_token'
 
 
 def display_monthly_read_statistic(year, df, file=None):
@@ -132,17 +135,14 @@ def obtain_user_access_token(token):
         )
 
 
-def do_authorization(init, token):
+def do_authorization(token):
     logging.info("authorize this app to access your Pocket list")
 
     auth_uri = "https://getpocket.com/auth/authorize"
     webbrowser.open(
         "{}?request_token={}&redirect_uri={}".format(auth_uri, token, redirect_uri)
     )
-    if init:
-        input("press <ENTER> after finish authorization in browser")
-    else:
-        time.sleep(3)
+    input("press <ENTER> after finish authorization in browser")
 
 
 def obtain_request_token():
@@ -171,7 +171,7 @@ def parse_args():
         description="show your read posts in a year from Pocket"
     )
     parser.add_argument(
-        "--init", action="store_true", help="initial for 1st time authorization"
+        "--auth", action="store_true", help="authorize Pocket application"
     )
     parser.add_argument(
         "-y",
@@ -179,9 +179,6 @@ def parse_args():
         type=int,
         default=date.today().year,
         help="the reading status of this year",
-    )
-    parser.add_argument(
-        "--export", type=str, help="export your read statistics to file"
     )
 
     return parser.parse_args()
@@ -194,11 +191,17 @@ if __name__ == "__main__":
     )
 
     args = parse_args()
-    file = args.export if args.export else "{}_read_posts.md".format(args.year)
+    file = "{}_read_posts.md".format(args.year)
 
-    request_token = obtain_request_token()
-    do_authorization(args.init, request_token)
-    user_access_token = obtain_user_access_token(request_token)
+    user_access_token = None
+    if args.auth or not os.path.exists(token_file):
+        request_token = obtain_request_token()
+        do_authorization(request_token)
+        user_access_token = obtain_user_access_token(request_token)
+        open(token_file, 'w').write(user_access_token)
+    else:
+        user_access_token = open(token_file, 'r').read()
+
     df = retrieve_read_posts_in_a_year(user_access_token, args.year)
     display_monthly_read_statistic(args.year, df)  # display to console
     display_monthly_read_statistic(args.year, df, file)  # output to file
