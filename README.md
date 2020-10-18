@@ -38,7 +38,7 @@ optional arguments:
 ```
 
 * If you have not authorized this app, it will open a page then ask you to authorize the app to access your reading list.
-** You can re-authorize this app by `python read_posts_in_a_year.py --auth`
+  * You can re-authorize this app by `python read_posts_in_a_year.py --auth`
 
   ```sh
   $ python read_posts_in_a_year.py
