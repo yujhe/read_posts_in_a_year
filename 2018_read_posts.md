@@ -4,6 +4,8 @@
 | 2018-10 |    5 |
 | 2018-11 |    9 |
 | 2018-12 |    1 |
+| ------- | ---- |
+| Total   |   15 |
 
 
 ## 2018-10
@@ -18,7 +20,7 @@
 * (POST)  2018/11/05 How to write great unit tests with JUnit (examples explaining 4 major features of JUnit 4): https://www.javacodehouse.com/blog/junit-tutorial/
 * (POST)  2018/11/07 Map.map vs. Map.mapValues: http://blog.bruchez.name/2013/02/mapmap-vs-mapmapvalues.html
 * (POST)  2018/11/08 Build a Data Lake Foundation with AWS Glue and Amazon S3: https://aws.amazon.com/blogs/big-data/build-a-data-lake-foundation-with-aws-glue-and-amazon-s3/
-* (POST)  2018/11/08 How to mock with Mockito (A comprehensive guide with examples): https://www.javacodehouse.com/blog/mockito-tutorial/
+* (POST)  2018/11/08 Mockito Tutorial (A comprehensive guide with examples): https://javacodehouse.com/blog/mockito-tutorial/
 * (POST)  2018/11/09 How I organize my knowledge as a Software Engineer: https://dev.to/brpaz/how-do-i-organize-my-knowledge-as-a-software-engineer-4387
 * (POST)  2018/11/20 Scala Enumerations: http://underscore.io/blog/posts/2014/09/03/enumerations.html
 * (POST)  2018/11/28 Problems With Kafka Streams: The Saga Continues: https://dzone.com/articles/problems-with-kafka-streams-the-saga-continues
